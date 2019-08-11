@@ -12,22 +12,32 @@ Connect to the server with your favorite console.
 ### clock
 
 Shows help  
-```clock_help```
+```
+clock_help
+```
 
 Activate/Deactivate a constant stream of your connected time  
-```clock_active=1```  
-```clock_active=0```
+```
+clock_active=1
+clock_active=0
+```
 
 ### Browse the interwebz
 
 Load a website  
-```url=https://wiki.chaosdorf.de```
+```
+url=https://wiki.chaosdorf.de
+```
 
 show next page (URL NEXT)  
-```urln```
+```
+urln
+```
 
 reload page (URL FIRST)  
-```urlf```
+```
+urlf
+```
 
 What it looks like:
 ![a website shown on a old computer 266MHz)](https://pbs.twimg.com/media/EBt52wOXoAAy_eM?format=jpg&name=4096x4096)
