@@ -12,26 +12,35 @@ class Browsi(modules.BaseModule.BaseModule):
         self.chars_per_row = 80
         self.rows_per_page = 24
         self.page_index = 0
+        self.show_errors = True
 
     def getPage(self, url):
-        page = requests.get(url)
-        soup = BeautifulSoup(page.text, 'html.parser')
+        self.debug('URL: "' + url + '"')
 
-        # kill all script and style elements
-        for script in soup(["script", "style"]):
-            script.decompose()  # rip it out
+        text = ''
+        try:
+            page = requests.get(url)
+            soup = BeautifulSoup(page.text, 'html.parser')
 
-        # get text
-        text = soup.get_text()
+            # kill all script and style elements
+            for script in soup(["script", "style"]):
+                script.decompose()  # rip it out
 
-        # break into lines and remove leading and trailing space on each
-        lines = (line.strip() for line in text.splitlines())
+            # get text
+            text = soup.get_text()
 
-        # break multi-headlines into a line each
-        chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+            # break into lines and remove leading and trailing space on each
+            lines = (line.strip() for line in text.splitlines())
 
-        # drop blank lines
-        text = '\n'.join(chunk for chunk in chunks if chunk)
+            # break multi-headlines into a line each
+            chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+
+            # drop blank lines
+            text = '\n'.join(chunk for chunk in chunks if chunk)
+        except Exception as ex:
+            self.debug('ERROR: ' + str(ex))
+            if self.show_errors:
+                text = "\nERROR:\n" + str(ex) + "\n"
 
         return text
 
@@ -46,6 +55,8 @@ class Browsi(modules.BaseModule.BaseModule):
             self.writeLine('################')
             self.writeLine('')
             self.writeLine('url=https://wiki.chaosdorf.de')
+            self.writeLine('urln next page')
+            self.writeLine('urlf first page')
 
         elif 'url' in commands:
             self.commandCatched()

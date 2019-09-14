@@ -6,6 +6,11 @@ class BaseModule:
     def __init__(self):
         self.catched_command = False
         self.output_buffer = ''
+        self.debug = False
+
+    def debugPrint(self, txt):
+        if self.debug:
+            print(self.__class__.__name__ + ':', txt)
 
     def getDictFromCommand(self, command: str, separator_key_val='=', separator_fields=';', smart=True) -> dict:
         fields = []
