@@ -36,6 +36,8 @@ while True:
             client_id = accept_wrapper(SELECTOR, key.fileobj)
             clients[client_id] = ClientCommunicator.ClientCommunicator(SELECTOR, client_id)
             clients[client_id].addDataToSend('WELCOME')
+            # exec a module on connect
+            # clients[client_id].execModulesCommands("url=https://wiki.chaosdorf.de")
         else:
             #sock = key.fileobj
             data = key.data
